@@ -1,0 +1,34 @@
+What is needed for this:
+
+- twitter downloaded, cleaned, vectorized
+- transfer learning for BERT or something
+- could also try to train it ourselves
+- run code that generates text 
+- streamlit/tkinter app to generate text 
+
+
+
+
+Log
+
+5/20/22 
+- Got access to the Twitter API and began trying to download tweets. 
+
+
+5/23/22
+- Trying to clean and anonymize the tweets I have downloaded. 
+- Trying to find other users with a good tweets. 
+
+
+5/29/22
+- Finally got username removal down and URL removal done. That was satisfying to get the regex to work right. 
+
+
+6/1/22
+- Watching OpenAI videos to see how to generate text. Still haven't figured it out.
+- Tried running HuggingFace's GPT-2, but something went wrong with the transformers library install. 
+
+
+6/4/22
+- Trying out EleuthAI's GPT-3 copy. Big download - 22 GBs for the model. Doing it on Colab. 
+
