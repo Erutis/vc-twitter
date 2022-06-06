@@ -1,0 +1,92 @@
+What is needed for this:
+
+- twitter downloaded, cleaned, vectorized
+- transfer learning for BERT or something
+- figure out how to fine-tune using twitter text 
+- could also try to train it ourselves
+- run code that generates text 
+- streamlit/tkinter app to generate text 
+
+
+
+Libraries:
+- pandas/numpy/os/re/warnings
+- configparser
+- Tweepy
+- matplotlib
+- nltk
+- scikit-learn
+
+
+Log
+
+5/20/22 
+- Got access to the Twitter API and began trying to download tweets. 
+
+
+5/23/22
+- Trying to clean and anonymize the tweets I have downloaded. 
+- Trying to find other users with a good tweets. 
+
+
+5/29/22
+- Finally got username removal down and URL removal done. That was satisfying to get the regex to work right. 
+
+
+6/1/22
+- Watching OpenAI videos to see how to generate text. Still haven't figured it out.
+- Tried running HuggingFace's GPT-2, but something went wrong with the transformers library install. 
+
+
+6/4/22
+- Trying out EleuthAI's GPT-3 copy. Big download - 22 GBs for the model. Doing it on Colab. 
+- Ok, Colab runs out of memory trying to load the model...... I'll try this again at home, maybe on a different computer? 
+- Meanwhile, attempting to make Streamlit app. Lol, TLaaS: Thought Leadership as a Service
+- Dustin suggested creating a use case where a user can choose who they want to emulate and whether they want a blog or tweet
+
+- Welp, EleuthAI won't work. It takes 24 GB of ram and I do not have such capabilities.
+- Got GPT-2 to work, but now need to figure out how to fine-tune it using my Twitter data. Looking up the Harry Potter AI chapter for inspiration.
+- Max Woolf has a colab notebook that is set up for easy fine-tuning. I'll make a copy and see if it works.
+- Ok, fine-tuning using Max Woolf's gpt_2_simple. Early results are hilarious. 
+- It ran for at least 40 minutes and gave me the samples from sample_gpt2.txt 
+- I now have a fine-tuned model! But it has a lot of quotes " . Should try to get rid of them. 
+- I've removed " quotes and 'RT :' from the text. Now rerunning the fine-tuning
+
+
+6/6/22
+- Going to concentrate on bridging the model and streamlit app. 
+- Snags: trying to run gpt-2-simple on my machine errors out regardless of using .py or a notebook. Internet says this is a M1 problem. 
+- It's fine, I'll just make do with the Colab notebook. It worked fine on there.
+
+
+- - - - - 
+- Ok, after troubleshooting with Devin & Caroline for an hour, here's what was accomplished:
+- - - - Error: illegal hardware instruction: solved by running these steps:
+- - - - - 1. https://developer.apple.com/metal/tensorflow-plugin/ Run this in terminal: 
+
+"""
+chmod +x ~/Downloads/Miniforge3-MacOSX-arm64.sh
+sh ~/Downloads/Miniforge3-MacOSX-arm64.sh
+source ~/miniforge3/bin/activate
+"""
+
+This will create a new 'base' kind of with miniforge. THEN follow the rest of the instructions
+
+2. Install tensorflow dependencies: conda install -c apple tensorflow-deps
+3. Install base tensorflow: python -m pip install tensorflow-macos
+4. Install tensorflow-metal plugin: python -m pip install tensorflow-metal
+
+- - - - - 
+
+- After that, had to reinstall gpt-2-simple and had to uninstall and reinstall numpy for some reason. All in the miniforge env, which is apparently separate from base.
+- After all that, the .py file is finally working, it's just not doing what I meant it to do. 
+- I removed the model training and only left the pulling of the run2 model output. It worked!! It gave me back this:
+
+'who is john galt? john galt is a legend in and around vc. 
+i don't know who this guy is but i do know that vcs are screwed over by past'
+
+- It's taking about 3 minutes to run and takes up a ton of RAM while it runs. 
+- I confirmed it isn't the model loading that takes the most time, but the generation part. :( 
+
+- Besides optimization, next step is figuring out how to tie Streamlit button to a function.
+- Ok, so using the on_click param, it works. It just doesn't output the text generation to the app... only the terminal.
