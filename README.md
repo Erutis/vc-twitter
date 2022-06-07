@@ -28,7 +28,20 @@ Use the `02_cleaning.ipynb` notebook to clean your .csv file with the Twitter da
 
 ## 4. Modeling
 
-This project uses Max Woolf's `gpt-2-simple`, which also has a useful Google Colab notebook to help set it up: [gpt-2-simple](https://github.com/minimaxir/gpt-2-simple). The `04_text_gen.ipynb` notebook is largely taken from this Colab notebook with a few tweaks and is only used to generate text on an already fine-tuned model stored locally. It's recommended to only use this notebook in Google Colab. If you want to fine-tune the model on other text, please use the Colab notebook linked inside the gpt-2-simple README. 
+This project uses Max Woolf's `gpt-2-simple`, which also has a useful Google Colab notebook to help set it up: [gpt-2-simple](https://github.com/minimaxir/gpt-2-simple). 
+
+Using that Colab notebook, I fine-tuned the pre-trained model using the `124M` configuration and my Twitter text data. The fine-tuned model was then downloaded locally (size: ~500MB). 
+
+The `04_text_gen.ipynb` notebook is largely taken from this same Colab notebook with a few tweaks and is only used to generate text on an already fine-tuned model stored locally. It's recommended to only use this notebook in Google Colab. If you want to fine-tune the model on other text, please use the original Colab notebook linked inside the [gpt-2-simple](https://github.com/minimaxir/gpt-2-simple)'s README. 
+
+
+## Streamlit App
+
+The Streamlit app sets up the pre-trained, fine-tuned local model to generate a text sample at the click of a button. There are issues here. 
+
+1. The model takes at least 3 minutes to run once without a GPU.
+2. If using the `st.cache()` method saved in `app.py`, it will cut down local runtime by about 50%, however it will also mean that the button can only generate one text sample before having to be restarted. 
+
 
 -------
 
