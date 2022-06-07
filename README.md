@@ -14,7 +14,7 @@ This repo creates an NLP text generator that generates text based off of the mos
 
 You'll need a Twitter API token in order to use the `01_twitter_user.py` file from [Mehran Shakarami's AI Spectrum](https://github.com/mehranshakarami/AI_Spectrum). Go to developer.twitter.com and request Elevated access. Once you have your credentials, create a new file and store the configurations in separate variables. 
 
-Once you have this, just change the username and limit variables in `01_twitter_user.py` to download the desired number of tweets as a csv file. 
+Once you have this, just change the username and limit variables in `01_twitter_user.py` to download the desired number of tweets as a csv file. The cleaned file for my modeling can be found [here](https://drive.google.com/file/d/1zsKT4MKBQPmjMtYVrL1QQOuXxU8bHYib/view?usp=sharing). 
 
 
 ## 2. Data Cleaning
