@@ -90,3 +90,57 @@ i don't know who this guy is but i do know that vcs are screwed over by past'
 
 - Besides optimization, next step is figuring out how to tie Streamlit button to a function.
 - Ok, so using the on_click param, it works. It just doesn't output the text generation to the app... only the terminal.
+
+
+- I tried adding params, but it just breaks it. :( Also Ben couldn't help with Streamlit or with optimization. He suggested I reach out to Niraj Saran from a few cohorts ago. 
+- Tomorrow's task will be trying to see how I can output the text to the app and how I can limit the memory used.
+
+
+6/7/22
+- Worked with Eric trying to figure out optimization, but the real answer may just be to use a Google Colab nb to speed up the generation.
+- I've got a working colab notebook that draws the fine-tuned model from my Google drive
+- I also redownloaded everyone's Tweets, this time setting it to the last 3,000 for each user and trained a run3 model on that. The results are less funny. I might keep using run2. 
+- Nice! @cache() sped up the text generation by 50%. However, it also means the button can only be pressed once. 
+- Jeff helped with session_state, which finally got the text gen to print in the app instead of the terminal
+
+
+import streamlit as st
+import gpt_2_simple as gpt2
+import time
+
+st.set_page_config(page_title='TLAS')
+
+st.title("TLAS")
+st.header("Thought Leadership as a Service")
+st.subheader("Don\'t know what to post today? Why not have an AI help?")
+st.image('https://img.huffingtonpost.com/asset/57e3a2a91800002f00316523.jpeg?ops=scalefit_720_noupscale&format=webp')
+st.write("This site is helpful for professionals in the venture capital space who are looking to emulate a great VC!\n Click on the button below to generate some content!")
+
+# use @st.cache to speed up text_gen by 50%
+# this will mean you can only press the button once
+
+@st.cache()
+def text_gen():
+    sess = gpt2.start_tf_sess()
+    gpt2.load_gpt2(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', run_name='run3') 
+    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', return_as_list=True, length=50, run_name='run3')[0]
+
+
+text1 = st.button(label='Push me for thought leadership', on_click=text_gen)
+
+#st.checkbox(label='Show me the output', value=False, on_change=text)
+
+st.write(st.session_state['text'])
+
+
+
+
+# with st.spinner(text='In progress'):
+#     time.sleep(5)
+#     st.success('Done')
+
+
+
+st.write("[Project Github](https://github.com/Erutis/vc-twitter)")
+
+
