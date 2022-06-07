@@ -1,5 +1,3 @@
-#https://github.com/Erutis/AI_Spectrum_Twitter_API/tree/main/2022/Twitter_API
-
 import tweepy
 import configparser
 import pandas as pd
