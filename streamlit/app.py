@@ -16,13 +16,17 @@ st.write("This site is helpful for professionals in the venture capital space wh
 @st.cache()
 def text_gen():
     sess = gpt2.start_tf_sess()
-    gpt2.load_gpt2(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', run_name='run3') 
-    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', return_as_list=True, length=50, run_name='run3')[0]
+    gpt2.load_gpt2(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', run_name='run4') 
+    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', return_as_list=True, length=50, run_name='run4')[0]
 
 
 text1 = st.button(label='Push me for thought leadership', on_click=text_gen)
 
-st.write(st.session_state['text'])
+try:
+    st.write(st.session_state['text'])
+except:
+    st.write('This will change to text once you press the button.')
+    st.write('This might take a while. Go take a break. You deserve it, Thought Leader.')
 
 st.write("[Project Github](https://github.com/Erutis/vc-twitter)")
 
