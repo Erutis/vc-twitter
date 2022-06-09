@@ -16,8 +16,8 @@ st.write("This site is helpful for professionals in the venture capital space wh
 @st.cache()
 def text_gen():
     sess = gpt2.start_tf_sess()
-    gpt2.load_gpt2(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', run_name='run4') 
-    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', return_as_list=True, length=50, run_name='run4')[0]
+    gpt2.load_gpt2(sess, checkpoint_dir='https://drive.google.com/drive/folders/1-0lJhen6aObbTU50BBTlS-IprfgD_iCY?usp=sharing', run_name='run2') 
+    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='https://drive.google.com/drive/folders/1-0lJhen6aObbTU50BBTlS-IprfgD_iCY?usp=sharing', return_as_list=True, length=50, run_name='run2')[0]
 
 
 text1 = st.button(label='Push me for thought leadership', on_click=text_gen)
