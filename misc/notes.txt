@@ -12,10 +12,12 @@ What is needed for this:
 Libraries:
 - pandas/numpy/os/re/warnings
 - configparser
-- Tweepy
+- tweepy
 - matplotlib
-- nltk
 - scikit-learn
+- gpt-2-simple
+- streamlit
+- time 
 
 
 Log
@@ -91,7 +93,6 @@ i don't know who this guy is but i do know that vcs are screwed over by past'
 - Besides optimization, next step is figuring out how to tie Streamlit button to a function.
 - Ok, so using the on_click param, it works. It just doesn't output the text generation to the app... only the terminal.
 
-
 - I tried adding params, but it just breaks it. :( Also Ben couldn't help with Streamlit or with optimization. He suggested I reach out to Niraj Saran from a few cohorts ago. 
 - Tomorrow's task will be trying to see how I can output the text to the app and how I can limit the memory used.
 
@@ -102,45 +103,41 @@ i don't know who this guy is but i do know that vcs are screwed over by past'
 - I also redownloaded everyone's Tweets, this time setting it to the last 3,000 for each user and trained a run3 model on that. The results are less funny. I might keep using run2. 
 - Nice! @cache() sped up the text generation by 50%. However, it also means the button can only be pressed once. 
 - Jeff helped with session_state, which finally got the text gen to print in the app instead of the terminal
+- The app is pretty janky - I don't have a way to prevent the error for ['text'] before pressing the button. 
+
+- Taking a break from the app to focus on cleaning up the other notebooks.
+- README and notebooks cleaned as of 5pm on 6/7/22
+- Tomorrow and Thursday I'll focus on two things: 1) smoothing out the streamlit app OR running it in colab, and 2) the presentation
 
 
-import streamlit as st
-import gpt_2_simple as gpt2
-import time
-
-st.set_page_config(page_title='TLAS')
-
-st.title("TLAS")
-st.header("Thought Leadership as a Service")
-st.subheader("Don\'t know what to post today? Why not have an AI help?")
-st.image('https://img.huffingtonpost.com/asset/57e3a2a91800002f00316523.jpeg?ops=scalefit_720_noupscale&format=webp')
-st.write("This site is helpful for professionals in the venture capital space who are looking to emulate a great VC!\n Click on the button below to generate some content!")
-
-# use @st.cache to speed up text_gen by 50%
-# this will mean you can only press the button once
-
-@st.cache()
-def text_gen():
-    sess = gpt2.start_tf_sess()
-    gpt2.load_gpt2(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', run_name='run3') 
-    st.session_state['text'] = gpt2.generate(sess, checkpoint_dir='/Users/kei/Downloads/checkpoint', return_as_list=True, length=50, run_name='run3')[0]
+6/8/22
+- Can't do much without internet on the plane, but I did separate out short tweets and long tweets based on if they had fewer than 20 characters. 
+- When I get to an internet connection, I'll start the Colab notebook on a run4 that only has longer tweets to eat. 
+- Also for the error in the streamlit app, I should try some try/except things to avoid it. 
+- I made a requirements text file while I wait for run4 to finish
+- I added a try/except to hide the error from streamlit/app.py's session_state['text'] line
 
 
-text1 = st.button(label='Push me for thought leadership', on_click=text_gen)
-
-#st.checkbox(label='Show me the output', value=False, on_change=text)
-
-st.write(st.session_state['text'])
-
-
-
-
-# with st.spinner(text='In progress'):
-#     time.sleep(5)
-#     st.success('Done')
+For future note:
+checkpoints: 
+- run1 - the original fine-tuning that had the RT and quotes; used only 300 tweets per user
+- run2 - second run using the 300 posts/user. took out RT and quotes and it looks cleaner.
+- run3 - third run, this time using 3,000 posts/user. results are more matter-of-fact and less funny.
+- run4 - tried excluding tweets that had fewer than 20 characters to help the output be long each time. 
 
 
+For tomorrow:
+- update readme with run info
+- add link to the runs in Drive
+- implement the new max wolf model
+- see if huggingface upload works
+- start thinking through prez and collecting our fave outputs
+- 'want to sound like a real VC? Get TLaaS.'
+- watch spark 2
+- possibly take the cleaning functions and put them in a separate .py file 
+- make a model from scratch
 
-st.write("[Project Github](https://github.com/Erutis/vc-twitter)")
 
-
+6/9/22 
+- Priorities: made vc-twitter-update to try huggingface & the new model.
+- notes will be in there in case anything breaks

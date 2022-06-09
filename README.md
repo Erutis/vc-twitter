@@ -34,6 +34,13 @@ Using that Colab notebook, I fine-tuned the pre-trained model using the `124M` c
 
 The `04_text_gen.ipynb` notebook is largely taken from this same Colab notebook with a few tweaks and is only used to generate text on an already fine-tuned model stored locally. It's recommended to only use this notebook in Google Colab. If you want to fine-tune the model on other text, please use the original Colab notebook linked inside the [gpt-2-simple](https://github.com/minimaxir/gpt-2-simple)'s README. 
 
+If you'd like to use the models I fine-tuned, they can be found in [Google Drive here](https://drive.google.com/drive/folders/1-0lJhen6aObbTU50BBTlS-IprfgD_iCY?usp=sharing).
+
+- `run1`: the original fine-tuning that didn't remove the strings with 'RT' and quote symbols; used only 300 tweets per user
+- `run2`: second run using the 300 posts/user. Took out RT and quotes and it looks cleaner.
+- `run3` - third run, this time using 3,000 posts/user. results are more matter-of-fact and less funny.
+- `run4` - tried excluding tweets that had fewer than 20 characters to help the output be long each time. 
+
 
 ## Streamlit App
 
