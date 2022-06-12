@@ -141,3 +141,51 @@ For tomorrow:
 6/9/22 
 - Priorities: made vc-twitter-update to try huggingface & the new model.
 - notes will be in there in case anything breaks
+
+-- notes from copy of repo while trying aitextgen --
+
+- run2.1 is using 300 tweets/user on the new aitextgen using the file.txt
+- run3.1 will use the 3000_tweets.csv one
+- run4.1 will use the long_text.txt
+- run 1.1 will use the original 300 tweets in a .csv to avoid the spacing weirdness.
+
+- it works great in the colab notebook. Barely 2-3 seconds per generation. The csv-trained one is working pretty well
+- Streamlit online won't work - it doesn't want to take the google drive link to the model and I don't have another way to host it.
+
+- I might just use the aitextgen library instead for the whole app. We'll see if it works.
+- Ok, that works like a DREAM. Less than 10 seconds for generation, less than 10 seconds to laod the model. Amazing.
+- Removed the st.cache() because it doesn't even need it. Speedy little guy. That made the button work on each click. 
+
+- LOCAL APP DONE!!!! 
+
+- Now to figure out how to get it to run online....
+- going to try the google URl again with aitextgen this time. Please work omg.
+- Nope. nothing has a good way to load the .bin. It won't recognize that the filepath is correct.
+- I've spent 2 whole hours on this 
+- Caroline with the save!!! It was "." That was the filepath it wanted. It doesn't need the .json necessarily.
+- It's freaking working - live!!! 
+
+For Friday:
+- Clean up the Readme, upload the different versions
+- make presentation
+- watch spark 2
+
+
+6/10/22
+
+Additional things we could do:
+- Include [name] and [url] instead of just removing when anonymizing
+- Remember which run you uploaded...Or just upload another. 
+
+- added in [username] and [url] to the 3000 tweets. Training now. 
+- run5.1 added. This is using 3000/user and has [url] and [username]
+- added a prompt ability to the HF app; seems to have fixed it. Also temp=.9 now.
+
+
+- for future reminder - the environment used for the local streamlit app is aitext_env
+
+
+6/11/22
+
+- finished presentation
+- finished updated readme
